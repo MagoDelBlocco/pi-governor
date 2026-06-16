@@ -1,0 +1,10 @@
+{
+  "name": "pi-extension-governor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Injects a custom identity, voice, and epistemic guidelines into pi's system prompt.",
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}

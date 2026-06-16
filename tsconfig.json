@@ -6,8 +6,11 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
+    // Types only. pi provides this package at runtime; for typechecking we point at
+    // the global install. Relative to this tsconfig so it isn't tied to one machine
+    // (assumes the standard ~/.pi extension layout and an ~/.npm-global npm prefix).
     "paths": {
-      "@earendil-works/pi-coding-agent": ["/home/bogdan/.npm-global/lib/node_modules/@earendil-works/pi-coding-agent"]
+      "@earendil-works/pi-coding-agent": ["../../../../.npm-global/lib/node_modules/@earendil-works/pi-coding-agent"]
     }
   },
   "include": ["*.ts"]
