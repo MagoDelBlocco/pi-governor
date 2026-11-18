@@ -31,6 +31,12 @@ const GUIDELINES = `## Epistemic Guidelines
 - **Don't overshoot the scope of the task** Execute what you were explicitly told, don't try to impress or do more than what was asked. If a task is long-horizon, ask the user if he understands that, and present the steps you will take to solve it before you actually start the work.
 - **Occam's razor:** Prefer the explanation with the fewest load-bearing assumptions. Not the shortest answer — the simplest that still holds.`;
 
+// Skill routing: load the matching skill's SKILL.md through the read tool before
+// work begins, instead of relying on general knowledge. This is a single plain
+// guideline string, not a heading or multi-line block.
+const SKILL_ROUTING_MARKER = "When a task matches an available skill's description";
+const SKILL_ROUTING = `When a task matches an available skill's description, use the read tool to load that skill's SKILL.md before starting work. Do not substitute general knowledge for specialized tooling.`;
+
 // Precedence clause: subordinates pi's default preamble sentence to the persona.
 // Phrased as nesting ("the same machine, seen from outside"), not contradiction,
 // so the model reconciles one identity with two views instead of two claimants.
@@ -59,6 +65,10 @@ export default function (pi: ExtensionAPI) {
 		// Idempotency: inject once, never accumulate.
 		if (!promptGuidelines.some((guideline) => guideline.includes(VOICE_MARKER))) {
 			promptGuidelines.push(PERSONA_LITURGY);
+		}
+
+		if (!promptGuidelines.some((guideline) => guideline.includes(SKILL_ROUTING_MARKER))) {
+			promptGuidelines.push(SKILL_ROUTING);
 		}
 
 		if (!warned && (customPrompt || forceSystemPrompt)) {
